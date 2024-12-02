@@ -1,0 +1,66 @@
+# Part 1
+Total = 0
+diffs = []
+Safe = False
+with open("input.txt","r") as file:
+  Lines = file.readlines()
+  for line in Lines:
+    Safe = False
+    diffs = []
+    item = line.strip().split(" ")
+    for i in range(1,len(item)):
+      
+      diffs.append(int(item[i]) - int(item[i-1])) 
+
+    
+    if all(-3 <= diff <= 3 and diff !=0 for diff in diffs):
+      if all(diff > 0 for diff in diffs) or all(diff < 0 for diff in diffs):
+        Safe = True
+    
+    
+    if Safe:
+      Total += 1
+
+
+print(Total)
+
+#Part 2
+
+Total = 0
+diff_done = False
+diffs = []
+
+Safe = False
+with open("input.txt","r") as file:
+  Lines = file.readlines()
+  for line in Lines:
+    Safe = False
+    diffs = []
+    item = line.strip().split(" ")
+    for i in range(1,len(item)):
+      
+      diffs.append(int(item[i]) - int(item[i-1])) 
+
+    if all(-3 <= diff <= 3 and diff !=0 for diff in diffs):
+      if all(diff > 0 for diff in diffs) or all(diff < 0 for diff in diffs):
+        Safe = True
+
+    if not Safe:
+      
+      for i in range(len(item)):
+        
+        new_item = item[:i] + item[i+1:]
+        new_diffs = []
+        for k in range(1,len(new_item)):
+          new_diffs.append(int(new_item[k]) - int(new_item[k-1])) 
+        if all(-3 <= diff <= 3 and diff !=0 for diff in new_diffs):
+          if all(diff > 0 for diff in new_diffs) or all(diff < 0 for diff in new_diffs):
+            Safe = True
+            break
+        
+      
+    if Safe:
+      Total += 1
+
+
+print(Total)
